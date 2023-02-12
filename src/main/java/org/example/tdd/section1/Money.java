@@ -1,6 +1,6 @@
 package org.example.tdd.section1;
 
-class Money implements Expression{
+class Money implements Expression {
     protected int amount;
     protected String currency;
 
@@ -21,9 +21,11 @@ class Money implements Expression{
         return new Sum(this, addend);
     }
 
-    public Money reduce(String to) {
-        return this;
+    public Money reduce(Bank bank, String to) {
+        int rate = bank.rate(currency, to);
+        return new Money(amount / rate, to);
     }
+
     static Money dollar(int amount) {
         return new Money(amount, "USD");
     }
